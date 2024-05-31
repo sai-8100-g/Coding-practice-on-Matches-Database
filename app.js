@@ -177,7 +177,7 @@ app.put('/todos/:todoId/', async (request, response) => {
   }
 })
 
-app.delete('/todots/:todoId', async (request, response) => {
+app.delete('/todos/:todoId', async (request, response) => {
   const {todoId} = request.params
   const query = `
   DELETE FROM 
