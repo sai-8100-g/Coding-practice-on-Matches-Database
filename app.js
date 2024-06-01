@@ -27,7 +27,7 @@ intializer()
 
 app.post('/register/', async (request, response) => {
   const {username, password, name, gender, location} = request.body
-  const hasedPassword = bcrypt.hash(password, 10)
+  const hasedPassword = await bcrypt.hash(password, 10)
   const getUserDetails = `
     SELECT 
     *
@@ -118,7 +118,7 @@ app.put('/change-password/', async (request, response) => {
         response.status(400)
         response.send('Password is too short')
       } else {
-        const newHasedPassword = bcrypt.hash(newPassword, 10)
+        const newHasedPassword = await bcrypt.hash(newPassword, 10)
         const creatingUser = `
         UPDATE
         user
