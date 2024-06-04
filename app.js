@@ -34,9 +34,6 @@ const authenticateToken = (request, response, next) => {
   let jwtToken = null
   if (headerInfo !== undefined) {
     jwtToken = headerInfo.split(' ')[1]
-  } else {
-    response.status(401)
-    response.send('Invalid JWT Token')
   }
   if (jwtToken === undefined) {
     response.status(401)
@@ -44,8 +41,8 @@ const authenticateToken = (request, response, next) => {
   } else {
     jwt.verify(jwtToken, 'SECRET_TOKEN', async (error, payload) => {
       if (error) {
-        response.status(400)
-        response.send('Invalid jwt Access Token')
+        response.status(401)
+        response.send('Invalid JWT Token')
       } else {
         request.username = payload.username
         next()
@@ -203,7 +200,7 @@ app.put(
   WHERE 
   district_id = '${districtId}';`
     await db.run(updatingQuery)
-    response.send('Districts Details Updated')
+    response.send('District Details Updated')
   },
 )
 
